@@ -4,3 +4,7 @@ enforce
 ingest
 policy
 *.exe
+# Python
+__pycache__/
+*.pyc
+*.pyo
