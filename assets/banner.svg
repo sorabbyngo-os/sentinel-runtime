@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" width="800" height="200">
+  <defs>
+    <filter id="glow-purple" x="-30%" y="-60%" width="160%" height="220%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="glow-soft" x="-10%" y="-30%" width="120%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="bleed" x="-20%" y="-40%" width="140%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <pattern id="scanlines" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="1" height="2" fill="rgba(0,0,0,0.2)"/>
+    </pattern>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0a000d"/>
+      <stop offset="40%" stop-color="#060008"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </linearGradient>
+    <linearGradient id="purple-fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#cc44ff" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#9922cc" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#330044" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="text-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dd66ff"/>
+      <stop offset="50%" stop-color="#cc44ff"/>
+      <stop offset="100%" stop-color="#9922cc"/>
+    </linearGradient>
+    <linearGradient id="line-fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#cc44ff" stop-opacity="0"/>
+      <stop offset="15%" stop-color="#cc44ff" stop-opacity="0.7"/>
+      <stop offset="85%" stop-color="#9922cc" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#9922cc" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="sub-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#cc44ff" stop-opacity="0"/>
+      <stop offset="20%" stop-color="#cc44ff" stop-opacity="0.9"/>
+      <stop offset="80%" stop-color="#9922cc" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#9922cc" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="200" fill="url(#bg-grad)"/>
+  <line x1="0" y1="50" x2="800" y2="50" stroke="#110022" stroke-width="0.5"/>
+  <line x1="0" y1="100" x2="800" y2="100" stroke="#110022" stroke-width="0.5"/>
+  <line x1="0" y1="150" x2="800" y2="150" stroke="#110022" stroke-width="0.5"/>
+  <line x1="200" y1="0" x2="200" y2="200" stroke="#110022" stroke-width="0.5"/>
+  <line x1="400" y1="0" x2="400" y2="200" stroke="#110022" stroke-width="0.5"/>
+  <line x1="600" y1="0" x2="600" y2="200" stroke="#110022" stroke-width="0.5"/>
+  <rect x="0" y="0" width="3" height="200" fill="url(#purple-fade)" filter="url(#bleed)"/>
+  <rect x="0" y="0" width="1.5" height="200" fill="#cc44ff" opacity="0.6"/>
+  <rect x="797" y="0" width="3" height="200" fill="url(#purple-fade)" filter="url(#bleed)"/>
+  <rect x="798.5" y="0" width="1.5" height="200" fill="#cc44ff" opacity="0.6"/>
+  <rect x="0" y="0" width="800" height="2" fill="url(#line-fade)" filter="url(#glow-soft)"/>
+  <rect x="0" y="198" width="800" height="2" fill="url(#line-fade)" filter="url(#glow-soft)"/>
+  <ellipse cx="1.5" cy="70" rx="3" ry="6" fill="#cc44ff" opacity="0.8" filter="url(#glow-soft)"/>
+  <ellipse cx="1.5" cy="135" rx="2.5" ry="4" fill="#9922cc" opacity="0.6" filter="url(#glow-soft)"/>
+  <ellipse cx="798.5" cy="58" rx="3" ry="5" fill="#cc44ff" opacity="0.7" filter="url(#glow-soft)"/>
+  <ellipse cx="798.5" cy="148" rx="2" ry="4" fill="#9922cc" opacity="0.5" filter="url(#glow-soft)"/>
+  <path d="M 20 20 L 20 8 L 32 8" stroke="#cc44ff" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <path d="M 780 20 L 780 8 L 768 8" stroke="#cc44ff" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <path d="M 20 180 L 20 192 L 32 192" stroke="#cc44ff" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <path d="M 780 180 L 780 192 L 768 192" stroke="#cc44ff" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <text x="28" y="48" font-family="monospace" font-size="9" fill="#220033" opacity="0.8">RING-2</text>
+  <text x="28" y="162" font-family="monospace" font-size="9" fill="#220033" opacity="0.8">ATTEST</text>
+  <text x="714" y="48" font-family="monospace" font-size="9" fill="#220033" opacity="0.8">AUDIT</text>
+  <text x="706" y="162" font-family="monospace" font-size="9" fill="#220033" opacity="0.8">ED25519</text>
+  <line x1="60" y1="72" x2="740" y2="72" stroke="url(#line-fade)" stroke-width="0.8" filter="url(#glow-soft)"/>
+  <line x1="60" y1="130" x2="740" y2="130" stroke="url(#line-fade)" stroke-width="0.8" filter="url(#glow-soft)"/>
+  <text x="400" y="95" font-family="'Courier New', Courier, monospace" font-size="33" font-weight="900" text-anchor="middle" letter-spacing="5" fill="url(#text-grad)" filter="url(#glow-purple)">SENTINEL RUNTIME</text>
+  <text x="400" y="120" font-family="'Courier New', Courier, monospace" font-size="11" font-weight="400" text-anchor="middle" letter-spacing="4" fill="url(#sub-grad)" filter="url(#glow-soft)">SORABBYNGO LABS · RING 2 · ATTESTATION · HASH-CHAIN AUDIT</text>
+  <text x="400" y="152" font-family="monospace" font-size="9" text-anchor="middle" fill="#220033" letter-spacing="3" opacity="0.8">[ INGEST ] [ DETECT ] [ ENFORCE ] [ BUS ] [ POLICY ]</text>
+  <rect width="800" height="200" fill="url(#scanlines)" opacity="0.4"/>
+</svg>
