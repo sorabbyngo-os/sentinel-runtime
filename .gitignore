@@ -1,13 +1,17 @@
-detect
-bus
-enforce
-ingest
-policy
+# Compiled binaries (root level only)
+/detect
+/bus
+/enforce
+/ingest
+/policy
+/sentinel-runtime
 *.exe
+
 # Python
 __pycache__/
 *.pyc
 *.pyo
-key
+
+# Keys
 *.key
-go.sum
+/key
