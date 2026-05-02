@@ -1,0 +1,30 @@
+go test ./internal/ledger/... ./pkg/secureevent/... -v 2>&1 | tail -30
+Building...
+
+Running tests...
+=== RUN   TestWriteCreatesEntry
+--- PASS: TestWriteCreatesEntry (0.00s)
+=== RUN   TestChainLinks
+--- PASS: TestChainLinks (0.00s)
+=== RUN   TestVerifyIntactChain
+--- PASS: TestVerifyIntactChain (0.00s)
+=== RUN   TestVerifyDetectsTampering
+--- PASS: TestVerifyDetectsTampering (0.00s)
+=== RUN   TestVerifyDetectsChainBreak
+--- PASS: TestVerifyDetectsChainBreak (0.00s)
+=== RUN   TestPersistenceResumesChain
+--- PASS: TestPersistenceResumesChain (0.00s)
+=== RUN   TestConvenienceMethods
+--- PASS: TestConvenienceMethods (0.00s)
+PASS
+ok  	github.com/sorabbyngo-Labs/sentinel-runtime/internal/ledger	0.010s
+=== RUN   TestSignAndVerify
+--- PASS: TestSignAndVerify (0.00s)
+=== RUN   TestTamperedEventFails
+--- PASS: TestTamperedEventFails (0.00s)
+=== RUN   TestReplayDetection
+--- PASS: TestReplayDetection (0.00s)
+=== RUN   TestUniqueEventsNotReplays
+--- PASS: TestUniqueEventsNotReplays (0.00s)
+PASS
+ok  	github.com/sorabbyngo-Labs/sentinel-runtime/pkg/secureevent	0.006s

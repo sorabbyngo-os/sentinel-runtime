@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	"github.com/sorabbyngo-Labs/sentinel-runtime/internal/events"
@@ -14,7 +16,7 @@ import (
 var logger = log.New(os.Stdout, "[POLICY] ", log.LstdFlags)
 
 func main() {
-	logger.Println("sentinel-runtime policy engine starting...")
+	logger.Println("Sorabbyngo sentinel-runtime policy starting...")
 
 	var nats *events.NATSClient
 	var err error
@@ -28,37 +30,38 @@ func main() {
 	if err != nil {
 		logger.Fatalf("Cannot connect to NATS: %v", err)
 	}
+	logger.Println("Connected to NATS — policy engine active")
 
 	engine := policy.NewEngine()
-	logger.Println("Policy engine active — evaluating events from sorabbyngo.kcp.*")
 
+	// Evaluate inbound kernel events and publish policy decisions
 	nats.Subscribe("sorabbyngo.kcp.>", func(subject, payload string) {
-		var event models.KernelEvent
-		if err := json.Unmarshal([]byte(payload), &event); err != nil {
+		var ke models.KernelEvent
+		if err := json.Unmarshal([]byte(payload), &ke); err != nil {
 			return
 		}
-		response := engine.Evaluate(event)
-		logger.Printf("POLICY: %s pid=%d comm=%s -> %s", subject, event.PID, event.Comm, response.String())
-
+		level := engine.Evaluate(ke)
+		if level == models.L1Monitor {
+			return
+		}
 		decision := models.SentinelDecision{
-			Source:    "sentinel-runtime.policy",
-			Comm:      event.Comm,
-			PID:       event.PID,
-			Confidence: event.Confidence,
-			Response:  response.String(),
-			Message:   event.Message,
-			Timestamp: float64(time.Now().Unix()),
+			Source:     "policy",
+			Comm:       ke.Comm,
+			PID:        ke.PID,
+			Confidence: ke.Confidence,
+			Response:   level.String(),
+			Message:    ke.Message,
+			Action:     level.String(),
+			Timestamp:  float64(time.Now().Unix()),
 		}
-
-		switch response {
-		case models.L3Kill, models.L4Lockdown:
-			nats.Publish("sorabbyngo.sentinel.threat", decision)
-		case models.L2Contain:
-			nats.Publish("sorabbyngo.sentinel.contained", decision)
-		default:
-			nats.Publish("sorabbyngo.sentinel.learned", decision)
-		}
+		logger.Printf("POLICY decision: %s pid=%d → %s", ke.Comm, ke.PID, level)
+		nats.Publish("sorabbyngo.sentinel.threat", decision)
 	})
 
-	nats.Listen()
+	go nats.Listen()
+
+	sig := make(chan os.Signal, 1)
+	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
+	<-sig
+	logger.Println("Policy engine shutting down")
 }
